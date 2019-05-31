@@ -2,6 +2,6 @@
 평가과제 JBLOG2 
 
 
-[DB]
 
-[db-scheme]!(./jblog2-exerd.png)
+#### 디비스키마
+![db-scheme](./jblog2-exerd.png)
