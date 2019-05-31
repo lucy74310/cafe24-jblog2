@@ -26,4 +26,8 @@ public class CategoryDao {
 	public Boolean insert(CategoryVo categoryVo) {
 		return 1 == sqlSession.insert("category.insert" , categoryVo);
 	}
+	
+	public Boolean delete(CategoryVo categoryVo) {
+		return 1 == sqlSession.delete("category.delete" , categoryVo);
+	}
 }

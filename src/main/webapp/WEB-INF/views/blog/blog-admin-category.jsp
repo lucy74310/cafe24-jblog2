@@ -13,14 +13,14 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blog.title }</h1>
+			<c:import url="/WEB-INF/views/includes/blog-admin-header.jsp"/>
 			<c:import url="/WEB-INF/views/includes/blog-admin-navigation.jsp"/>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/blog-admin-menu.jsp"/>
-		      	<table class="admin-cat">
-		      		<tr>
+		      	<table class="admin-cat" id="category-table">
+		      		<tr id="table-head">
 		      			<th>번호</th>
 		      			<th>카테고리명</th>
 		      			<th>포스트 수</th>
@@ -28,12 +28,12 @@
 		      			<th>삭제</th>      			
 		      		</tr>
 		      		
-		      		<tr id="categoryList">
-						<td id="no"></td>
-						<td id="title"></td>
-						<td id="count"></td>
-						<td id="description"></td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+		      		<tr class="row">
+						<td class="no"></td>
+						<td class="title"></td>
+						<td class="count"></td>
+						<td class="description"></td>
+						<td class="delete"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
 					</tr> 
 				</table>
       	
@@ -62,27 +62,44 @@
 	
 	<script>
 		
+		var empty = $('.row');
+		var tableHead = $('#table-head').clone();
+		var table = $('#category-table');
 		
 		$(function(){
+			getList();
 			$('#cat-add-button').click(function(){
-				
+				insertCategory();
 			});
-			
-			
-		})
+		});
+		
+		function listRender(data) {
+			table.empty();
+			tableHead.appendTo(table);
+			var row ;
+			console.log(data);
+			data.forEach( function (ele) {
+				row = empty.clone();
+				row.children('.no').html(ele.no);
+				row.children('.title').html(ele.title);
+				row.children('.count').html(ele.postNum);
+				row.children('.description').html(ele.description);
+				row.children('.delete').on("click", function() {
+					deleteCatetory(ele.no);
+				});
+				
+				row.appendTo(table);
+			}); 
+		}
 		
 		function getList() {
 			$.ajax({
-				url: "${pageContext.request.contextPath}/${authUser.id}/admin/category", 
+				url: "${pageContext.request.contextPath}/${authUser.id}/admin/category/list", 
 				type: "POST",
 				dataType: "json",
-				data: $('#cat-add-form').serialize(),
+				data: "",
 				success : function(res) {
-					res.data.forEach((ele)=>{
-						console.log(ele)
-					});
-					
-					
+					listRender(res.data);
 				},
 				error : function(xhr, error) {
 					console.error("error : " + error);
@@ -92,12 +109,36 @@
 		
 		
 		function insertCategory() {
-			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/${authUser.id}/admin/category/add", 
+				type: "POST",
+				dataType: "json",
+				data: $('#cat-add-form').serialize(),
+				success : function(res) {
+					listRender(res.data);
+				},
+				error : function(xhr, error) {
+					console.error("error : " + error);
+				}
+			});
 		}
 		
-		function deleteCategory() {
-			
+		function deleteCatetory(no) {
+			console.log('deleteCategory');
+			$.ajax({
+				url: "${pageContext.request.contextPath}/${authUser.id}/admin/category/delete", 
+				type: "POST",
+				dataType: "json",
+				data: {"no" : no ,"blogId" : "${authUser.id}" },
+				success : function(res) {
+					listRender(res.data);
+				},
+				error : function(xhr, error) {
+					console.error("error : " + error);
+				}
+			});	
 		}
+		
 	
 	</script>
 </body>

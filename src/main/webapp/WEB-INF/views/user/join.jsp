@@ -14,7 +14,7 @@
 <body>
 	<div class="center-content">
 		<h1 class="logo">JBlog</h1>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp"/>
+		<c:import url="/WEB-INF/views/includes/menu.jsp"/>
 		<form:form
 			modelAttribute="userVo"
 			class="join-form" 

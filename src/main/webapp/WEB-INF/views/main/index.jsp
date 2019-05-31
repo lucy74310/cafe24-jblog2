@@ -12,7 +12,7 @@
 <body>
 	<div class="center-content">
 		<h1 class="logo"></h1>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp"/>
+		<c:import url="/WEB-INF/views/includes/menu.jsp"/>
 		<form class="search-form">
 			<fieldset>
 				<input type="text" name="keyword" />

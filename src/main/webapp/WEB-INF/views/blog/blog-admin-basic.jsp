@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blog.title }</h1>
+			<c:import url="/WEB-INF/views/includes/blog-admin-header.jsp"/>
 			<c:import url="/WEB-INF/views/includes/blog-admin-navigation.jsp"/>
 		</div>
 		<div id="wrapper">

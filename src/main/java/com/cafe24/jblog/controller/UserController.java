@@ -58,7 +58,7 @@ public class UserController {
 		Boolean exist =userService.existId(userVo.getId());
 		
 		if(!exist) {
-			String url = request.getContextPath() + "/assets/images/logo/default.jpg";
+			String url = "/assets/images/logo/default.jpg";
 			userService.join(userVo, url);
 			return "user/joinsuccess";
 		} else {

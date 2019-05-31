@@ -3,6 +3,7 @@ package com.cafe24.jblog.vo;
 public class CategoryVo {
 	private Long no;
 	private String title;
+	private int postNum;
 	private String description;
 	private String regDate;
 	private String blogId;
@@ -17,6 +18,13 @@ public class CategoryVo {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public int getPostNum() {
+		return postNum;
+	}
+	public void setPostNum(int postNum) {
+		this.postNum = postNum;
 	}
 	public String getDescription() {
 		return description;
@@ -38,8 +46,9 @@ public class CategoryVo {
 	}
 	@Override
 	public String toString() {
-		return "CategoryVo [no=" + no + ", title=" + title + ", description=" + description + ", regDate=" + regDate
-				+ ", blogId=" + blogId + "]";
+		return "CategoryVo [no=" + no + ", title=" + title + ", postNum=" + postNum + ", description=" + description
+				+ ", regDate=" + regDate + ", blogId=" + blogId + "]";
 	}
+	
 	
 }
